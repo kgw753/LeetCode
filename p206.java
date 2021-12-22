@@ -19,19 +19,17 @@ public class p206 {
 
         return prev;
     }
-    
-    public ListNode reverseList2(ListNode head){
+
+    public ListNode reverseListRecur(ListNode head) {
         return reverse(head, null);
     }
 
-    public ListNode reverse(ListNode here, ListNode there){
-        if(here == null) return there;
-
-        ListNode tmp = here.next;
-        here.next = there;
-        there = here;
-        here = tmp;
-
-        return reverse(here, there);
+    private ListNode reverse(ListNode node, ListNode prev){
+        if(node == null) return prev;
+        ListNode next = node.next;
+        node.next = prev;
+        prev = node;
+        node = next;
+        return reverse(node, prev);
     }
 }
