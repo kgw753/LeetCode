@@ -19,4 +19,19 @@ public class p206 {
 
         return prev;
     }
+    
+    public ListNode reverseList2(ListNode head){
+        return reverse(head, null);
+    }
+
+    public ListNode reverse(ListNode here, ListNode there){
+        if(here == null) return there;
+
+        ListNode tmp = here.next;
+        here.next = there;
+        there = here;
+        here = tmp;
+
+        return reverse(here, there);
+    }
 }
