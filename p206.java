@@ -9,11 +9,14 @@ class ListNode {
 
 public class p206 {
     public ListNode reverseList(ListNode head) {
-        ListNode ret = null;
+        ListNode prev = null;
         while(head != null){
-            ret = new ListNode(head.val, ret);
-            head = head.next;
+            ListNode next = head.next;
+            head.next = prev;
+            prev = head;
+            head = next;
         }
-        return ret;
+
+        return prev;
     }
 }
