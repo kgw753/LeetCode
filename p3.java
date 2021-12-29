@@ -2,28 +2,27 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class p3 {
+    public Map<Character, Integer> mp = new HashMap<>();
     public int lengthOfLongestSubstring(String s) {
-        int res = 0;
-        int start = 0;
-        Map<Character, Integer> mp = new HashMap<>();
-        
+        int ret = 0;
+        int startIdx = 0;
+
         for(int i = 0; i < s.length(); i++){
             char c = s.charAt(i);
-
+            
             if(mp.containsKey(c)){
-                start = Math.max(start, mp.get(c) + 1);
+                startIdx = Math.max(startIdx, mp.get(c) + 1);
             }
-
+            
             mp.put(c, i);
-            res = Math.max(res, (i + 1) - start);
+            ret = Math.max(ret, i - startIdx + 1);
         }
 
-        return res;
-    }
+        return ret;
+    }   
 
     public static void main(String[] args){
-        practice p =  new practice();
-
-        p.lengthOfLongestSubstring("abba");
+        Solution sol = new Solution();
+        System.out.println(sol.lengthOfLongestSubstring("bbbbb"));
     }
 }
