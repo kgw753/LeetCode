@@ -1,3 +1,6 @@
+import java.util.HashMap;
+import java.util.Map;
+
 class TreeNode {
     int val;
     TreeNode left;
@@ -16,15 +19,18 @@ public class p101 {
         return isSymmetric(root.left, root.right);
     }
 
-    public boolean isSymmetric(TreeNode node1, TreeNode node2){
-        if(node1 != null && node2 != null){
-            if(node1.val == node2.val){
-                return isSymmetric(node1.left, node2.right) &&
-                        isSymmetric(node1.right, node2.left);
+    public boolean isSymmetric(TreeNode left, TreeNode right){
+        if(left != null && right != null){
+            if(left.val == right.val){
+                return isSymmetric(left.left, right.right) 
+                    && isSymmetric(right.left, left.right);
             }
-            else return false;
-        } else {
-            return node1 == null && node2 == null;
+            else{
+                return false;
+            }
+        }
+        else{
+            return left == null && right == null;
         }
     }
 }
