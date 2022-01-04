@@ -12,17 +12,17 @@ class TreeNode {
 }
 
 public class p124 {
-    int mx = Integer.MIN_VALUE;
-
+    public static int mx;
     public int maxPathSum(TreeNode root) {
-        maxPathDown(root);
+        mx = Integer.MIN_VALUE;
+        goDown(root);
         return mx;
     }
 
-    public int maxPathDown(TreeNode node){
+    public static int goDown(TreeNode node){
         if(node == null) return 0;
-        int left = Math.max(0, maxPathDown(node.left));
-        int right = Math.max(0, maxPathDown(node.right));
+        int left = Math.max(0, goDown(node.left));
+        int right = Math.max(0, goDown(node.right));
         mx = Math.max(mx, left + right + node.val);
         return Math.max(left, right) + node.val;
     }
