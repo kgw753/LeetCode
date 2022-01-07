@@ -1,38 +1,43 @@
-
-class ListNode {
+class TreeNode {
     int val;
-    ListNode next;
-    ListNode() {}
-    ListNode(int val) { this.val = val; }
-    ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+    TreeNode left;
+    TreeNode right;
+    TreeNode() {}
+    TreeNode(int val) { this.val = val; }
+    TreeNode(int val, TreeNode left, TreeNode right) {
+    this.val = val;
+    this.left = left;
+    this.right = right;
+    }
 }
 
-public class practice {
+public class p206 {
     public ListNode reverseList(ListNode head) {
-        ListNode prev = null;
+        ListNode prev, next;
+        prev = null;
 
         while(head != null){
-            ListNode tmp = head.next;
+            next = head.next;
             head.next = prev;
             prev = head;
-            head = tmp;
+            head = next;
         }
 
         return prev;
     }
 
-    public ListNode reverseListRecursive(ListNode head) {
-        return recursive(head, null);
+    public ListNode reverseListRecursive(ListNode head){
+        return reverseList(head, null);
     }
 
-    public static ListNode recursive(ListNode node, ListNode prev){
-        if(node == null) return prev;
+    public ListNode reverseList(ListNode now, ListNode prev){
+        if(now == null) return prev;
 
-        ListNode next = node.next;
-        node.next = prev;
-        prev = node;
-        node = next;
+        ListNode next = now.next;
+        now.next = prev;
+        prev = now;
+        now = next;
 
-        return recursive(node, prev);
+        return reverseList(now, prev);
     }
 }
