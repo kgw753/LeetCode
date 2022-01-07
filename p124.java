@@ -21,9 +21,12 @@ public class p124 {
 
     public static int goDown(TreeNode node){
         if(node == null) return 0;
-        int left = Math.max(0, goDown(node.left));
+
         int right = Math.max(0, goDown(node.right));
-        mx = Math.max(mx, left + right + node.val);
-        return Math.max(left, right) + node.val;
+        int left = Math.max(0, goDown(node.left));
+
+        mx = Math.max(mx, node.val + right + left);
+
+        return Math.max(right, left) + node.val;
     }
 }
