@@ -14,23 +14,21 @@ class TreeNode {
     }
 }
 
-
 public class p102 {
     public static List<List<Integer>> ret;
     public List<List<Integer>> levelOrder(TreeNode root) {
         ret = new ArrayList<>();
-        go(root, 0);
+        goDown(root, 0);
         return ret;
     }
 
-    public static void go(TreeNode node, int depth){
+    public static void goDown(TreeNode node, int depth){
         if(node == null) return;
-        if(ret.size() == depth){
-            ret.add(new ArrayList<>());
-        }
+        if(ret.size() == depth) ret.add(new ArrayList<>());
+
         ret.get(depth).add(node.val);
 
-        go(node.left, depth + 1);
-        go(node.right, depth + 1);
+        goDown(node.left, depth + 1);
+        goDown(node.right, depth + 1);
     }
 }
