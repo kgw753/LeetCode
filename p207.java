@@ -2,36 +2,37 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class p207 {
-    
     public static int[] inDegree;
-    public static Queue<Integer> q = new LinkedList<>();
+    public static Queue<Integer> q;
     public boolean canFinish(int numCourses, int[][] prerequisites) {
         inDegree = new int[numCourses];
+        q = new LinkedList<>();
+        int cnt = 0;
 
-        for(int[] prereq : prerequisites){
-            inDegree[prereq[1]]++;
+        for(int[] pre : prerequisites){
+            inDegree[pre[0]]++;
         }
 
         for(int i = 0; i < numCourses; i++){
-            if(inDegree[i] == 0) q.add(i);
+            if(inDegree[i] == 0){
+                q.add(i);
+                cnt++;
+            }
         }
 
         while(!q.isEmpty()){
-            int here = q.poll();
+            int now = q.poll();
 
-            for(int[] prereq : prerequisites){
-                if(prereq[0] == here){
-                    if(--inDegree[prereq[1]] == 0){
-                        q.add(prereq[1]);
+            for(int[] pre : prerequisites){
+                if(pre[1] == now){
+                    if(--inDegree[pre[0]] == 0){
+                        cnt++;
+                        q.add(pre[0]);
                     }
                 }
             }
         }
 
-        for(int i : inDegree){
-            if(i != 0) return false;
-        }
-        
-        return true;
+        return cnt == numCourses;
     }
 }
