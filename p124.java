@@ -18,7 +18,7 @@ public class p124 {
         goDown(root);
         return mx;
     }
-
+    
     public static int goDown(TreeNode node){
         if(node == null) return 0;
 
