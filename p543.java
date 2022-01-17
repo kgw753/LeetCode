@@ -14,6 +14,7 @@ class TreeNode {
 public class p543 {
     public static int mx;
     public int diameterOfBinaryTree(TreeNode root) {
+        mx = 0;
         goDown(root);
         return mx;
     }
