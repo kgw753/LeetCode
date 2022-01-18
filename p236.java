@@ -18,6 +18,6 @@ public class p236 {
         TreeNode right = lowestCommonAncestor(root.right, p, q);
         if(left == null) return right;
         else if(right == null) return left;
-        else return root;
-    }
+        return root;
+    }   
 }
