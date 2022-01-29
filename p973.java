@@ -1,29 +1,67 @@
+import java.util.Arrays;
 import java.util.Comparator;
-import java.util.PriorityQueue;
 
-public class p973 {
+class Solution {
+
+    /**
+     * 1. Sort by Distance
+     * Time Complexity : O(NlogN)
+     */
     public int[][] kClosest(int[][] points, int k) {
-        int[][] ret = new int[k][2];
-
-        PriorityQueue<int[]> pq = new PriorityQueue<>(new Comparator<int[]>(){
+        Arrays.sort(points, new Comparator<int[]>(){
             @Override
-            public int compare(int[] a1, int[] a2){
-                return a1[0] - a2[0];
+            public int compare(int[] p1, int[] p2){
+                return getDist(p1) - getDist(p2);
             }
         });
 
-        int[] pos;
-        int dist;
-        for(int i = 0; i < points.length; i++){
-            pos = points[i];
-            dist = pos[0] * pos[0] + pos[1] * pos[1];
-            pq.add(new int[]{dist, i});
-        }
+        return Arrays.copyOfRange(points, 0, k);
+    }
+    
+    public static int getDist(int[] pos){
+        return pos[0] * pos[0] + pos[1] * pos[1];
+    }
 
-        for(int i = 0; i < k; i++){
-            ret[i] = points[pq.poll()[1]];
-        }
+    /**
+     * 2. Quick Select
+     * Time Complexity : O(N)
+     */
+    public int[][] kClosestQuickSelect(int[][] points, int k) {
+        quickSelect(points, 0, points.length - 1, k);
+        return Arrays.copyOfRange(points, 0, k);
+    }
 
-        return ret;
+    public static void quickSelect(int[][] points, int l, int h, int k){
+        if(l >= h) return;
+        int pivotIdx = partition(points, l, h);
+
+        if(pivotIdx == k - 1){
+            return;
+        }
+        else if(pivotIdx < k - 1){
+            quickSelect(points, pivotIdx + 1, h, k);
+        }
+        else{
+            quickSelect(points, l, pivotIdx - 1, k);
+        }
+    }
+
+    public static int partition(int[][] points, int l , int h){
+        int pivot = getDist(points[h]);
+        int i = l - 1;
+
+        for(int j = l; j < h; j++){
+            if(getDist(points[j]) < pivot){
+                swap(points, ++i, j);
+            }
+        }
+        swap(points, ++i, h);
+
+        return i;
+    }
+    public static void swap(int[][] arr, int i, int j){
+        int[] tmp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = tmp;
     }
 }
